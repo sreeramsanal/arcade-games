@@ -99,21 +99,6 @@ The compiled static files are generated in `dist/`.
 
 ---
 
-## ☁️ Vercel Deployment
-
-Pixel Arcade is designed to deploy cleanly to **Vercel's Free Tier** as a static website with zero configuration overhead:
-
-1. Push this repository to GitHub (`https://github.com/sreeramsanal/arcade-games.git`).
-2. In the Vercel Dashboard, click **New Project** and select `sreeramsanal/arcade-games`.
-3. Configure the project settings:
-   - **Framework Preset:** Vite
-   - **Root Directory:** `./`
-   - **Build Command:** `npm run build`
-   - **Output Directory:** `dist`
-4. The included [`vercel.json`](./vercel.json) automatically handles SPA rewrites (`/(.*)` -> `/index.html`) so direct navigation to `/games/snake`, `/daily-challenge`, and `/scores` works out of the box.
-
----
-
 ## 📂 Project Directory Structure
 
 ```
@@ -196,9 +181,3 @@ All user telemetry is stored under the versioned key `pixel_arcade_storage_v1`:
   unlockedAchievements: string[]
 }
 ```
-
----
-
-## 📜 License
-
-MIT License. Designed with retro arcade passion.
