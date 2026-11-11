@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+:root {
+  --bg-void: #0d0f14;
+  --bg-hud: #14171f;
+  --bg-card: #1c212d;
+  --bg-card-sub: #090b0e;
+  --text-primary: #ffffff;
+  --text-secondary: #e2e2e9;
+  --text-muted: #9ba1b0;
+  --accent-crimson: #ff2a4b;
+  --accent-crimson-glow: rgba(255, 42, 75, 0.4);
+  --accent-amber: #ffb703;
+  --accent-cyan: #00f3ff;
+  --accent-green: #22c55e;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 42, 75, 0.5);
+}
+
+html.light {
+  --bg-void: #f4f6fa;
+  --bg-hud: #ffffff;
+  --bg-card: #f8fafc;
+  --bg-card-sub: #edf2f7;
+  --text-primary: #0f172a;
+  --text-secondary: #1e293b;
+  --text-muted: #64748b;
+  --accent-crimson: #e11d48;
+  --accent-crimson-glow: rgba(225, 29, 72, 0.25);
+  --accent-amber: #d97706;
+  --accent-cyan: #0284c7;
+  --accent-green: #16a34a;
+  --border-subtle: rgba(15, 23, 42, 0.1);
+  --border-hover: rgba(225, 29, 72, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-void);
+  color: var(--text-secondary);
+  font-family: 'Plus Jakarta Sans', 'Geist', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-card-sub);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: 3px;
+}
+
+/* Chamfer Shapes */
+.clip-chamfer {
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.clip-chamfer-btn {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+.clip-chamfer-sm {
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+/* Font Families */
+.font-headline {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-body {
+  font-family: 'Plus Jakarta Sans', 'Geist', sans-serif;
+}
+
+.font-mono-cyber {
+  font-family: 'JetBrains Mono', 'Space Mono', monospace;
+}
+
+/* Micro Animations */
+@keyframes neonPulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 14px var(--accent-crimson-glow), inset 0 0 8px rgba(255, 42, 75, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 28px var(--accent-crimson-glow), inset 0 0 14px rgba(255, 42, 75, 0.3);
+  }
+}
+
+.animate-neon-pulse {
+  animation: neonPulseGlow 3s ease-in-out infinite;
+}
+
+/* Card Transitions */
+.game-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+}
+
+html.dark .game-card:hover {
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 24px rgba(255, 42, 75, 0.25);
+}
+
+html.light .game-card:hover {
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12), 0 0 24px rgba(225, 29, 72, 0.2);
+}
+
+/* Glass Panels */
+.glass-panel {
+  background-color: var(--bg-hud);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(12px);
+}
+
+/* Bezel Reflections */
+.crt-bezel-screen {
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.95);
+}
+
+/* Tactile Button Press */
+.arcade-btn-tactile {
+  box-shadow: 0 4px 0 #920021;
+  transition: all 0.15s ease;
+}
+
+.arcade-btn-tactile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #920021, 0 0 20px rgba(255, 42, 75, 0.5);
+}
+
+.arcade-btn-tactile:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #920021;
+}
+
