@@ -233,6 +233,25 @@ export const SpaceShooterGame: React.FC = () => {
     if (dir === 'DOWN') p.y = Math.min(480, p.y + 30);
   }, []);
 
+  // Pointer & Touch Canvas Movement
+  const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (isPausedRef.current || isGameOverRef.current) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const px = (e.clientX - rect.left) * scaleX;
+    const py = (e.clientY - rect.top) * scaleY;
+    playerRef.current.x = Math.max(20, Math.min(500, px));
+    playerRef.current.y = Math.max(80, Math.min(500, py));
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    handlePointerMove(e);
+    handleTouchFire();
+  };
+
   const handleTouchFire = useCallback(() => {
     const now = Date.now();
     const p = playerRef.current;
@@ -608,13 +627,24 @@ export const SpaceShooterGame: React.FC = () => {
         { key: 'SPACE', label: 'FIRE' },
         { key: 'P', label: 'PAUSE' }
       ]}
+      touchControls={
+        <TouchControls
+          onDirection={handleTouchDirection}
+          onAction={handleTouchFire}
+          actionLabel="FIRE"
+          secondaryAction={togglePause}
+          secondaryLabel={isPaused ? 'RESUME' : 'PAUSE'}
+        />
+      }
     >
-      <div className="relative w-full h-full flex items-center justify-center">
+      <div className="relative w-full h-full flex items-center justify-center p-1">
         <canvas
           ref={canvasRef}
           width={540}
           height={540}
-          className="max-w-full max-h-full aspect-square border border-[#ff2a4b]/20"
+          onPointerMove={handlePointerMove}
+          onPointerDown={handlePointerDown}
+          className="w-full h-full max-w-full max-h-full object-contain aspect-square border border-[#ff2a4b]/20 touch-none cursor-crosshair shadow-[0_0_15px_rgba(255,42,75,0.2)]"
         />
 
         <GameOverModal
@@ -626,14 +656,6 @@ export const SpaceShooterGame: React.FC = () => {
           onPlayAgain={restartGame}
         />
       </div>
-
-      <TouchControls
-        onDirection={handleTouchDirection}
-        onAction={handleTouchFire}
-        actionLabel="FIRE"
-        secondaryAction={togglePause}
-        secondaryLabel={isPaused ? 'RESUME' : 'PAUSE'}
-      />
     </ArcadeCabinetFrame>
   );
 };

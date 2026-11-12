@@ -74,10 +74,10 @@ export const GamePage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-void)] text-white pt-24 pb-16 overflow-x-hidden">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
+    <div className="min-h-screen bg-[var(--bg-void)] text-white pt-20 sm:pt-24 pb-12 sm:pb-16 overflow-x-hidden">
+      <div className="max-w-[1440px] mx-auto px-2 sm:px-8 lg:px-12">
         {/* Navigation Breadcrumb Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[var(--border-subtle)]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-[var(--border-subtle)]">
           <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-muted)]">
             <Link
               to="/"

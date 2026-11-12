@@ -233,6 +233,27 @@ export const Game2048: React.FC = () => {
     }
   };
 
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const t = e.touches[0];
+    touchStartRef.current = { x: t.clientX, y: t.clientY };
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartRef.current) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchStartRef.current.x;
+    const dy = t.clientY - touchStartRef.current.y;
+    touchStartRef.current = null;
+    if (Math.abs(dx) < 20 && Math.abs(dy) < 20) return;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      move(dx > 0 ? 'RIGHT' : 'LEFT');
+    } else {
+      move(dy > 0 ? 'DOWN' : 'UP');
+    }
+  };
+
   return (
     <ArcadeCabinetFrame
       title="2048 SINGULARITY"
@@ -254,15 +275,20 @@ export const Game2048: React.FC = () => {
         { key: 'WASD / ↑↓←→', label: 'SLIDE' },
         { key: 'MERGE', label: 'TARGET: 2048' }
       ]}
+      touchControls={<TouchControls onDirection={move} />}
     >
-      <div className="relative w-full h-full flex flex-col items-center justify-center p-3 select-none">
+      <div className="relative w-full h-full flex flex-col items-center justify-center p-2 sm:p-3 select-none touch-none">
         {/* 4x4 Board */}
-        <div className="grid grid-cols-4 gap-2.5 sm:gap-3 p-3 bg-[#090b0e] border border-white/10 rounded-2xl shadow-inner w-full max-w-sm sm:max-w-md aspect-square">
+        <div 
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          className="grid grid-cols-4 gap-2 sm:gap-3 p-2.5 sm:p-3 bg-[#090b0e] border border-white/10 rounded-2xl shadow-inner w-full max-w-[340px] sm:max-w-[400px] aspect-square touch-none"
+        >
           {board.map((row, r) =>
             row.map((val, c) => (
               <div
                 key={`${r}-${c}`}
-                className={`rounded-xl flex items-center justify-center font-mono-cyber font-bold text-lg sm:text-2xl transition-all duration-200 aspect-square ${getTileStyle(
+                className={`rounded-xl flex items-center justify-center font-mono-cyber font-bold text-base sm:text-2xl transition-all duration-200 aspect-square ${getTileStyle(
                   val
                 )}`}
               >
@@ -282,8 +308,6 @@ export const Game2048: React.FC = () => {
           onPlayAgain={initGame}
         />
       </div>
-
-      <TouchControls onDirection={move} />
     </ArcadeCabinetFrame>
   );
 };

@@ -353,14 +353,21 @@ export const PongGame: React.FC = () => {
         { key: 'W/S / MOUSE', label: 'MOVE PADDLE' },
         { key: 'P', label: 'PAUSE' }
       ]}
+      touchControls={
+        <TouchControls
+          onDirection={handleTouchDirection}
+          onAction={togglePause}
+          actionLabel={isPaused ? 'RESUME' : 'PAUSE'}
+        />
+      }
     >
-      <div className="relative w-full h-full flex items-center justify-center">
+      <div className="relative w-full h-full flex items-center justify-center p-1">
         <canvas
           ref={canvasRef}
           width={540}
           height={540}
           onPointerMove={handlePointerMove}
-          className="max-w-full max-h-full aspect-square border border-[#ff2a4b]/20 cursor-ns-resize"
+          className="w-full h-full max-w-full max-h-full object-contain aspect-square border border-[#ff2a4b]/20 cursor-ns-resize touch-none shadow-[0_0_15px_rgba(255,42,75,0.2)]"
         />
 
         <GameOverModal
@@ -373,12 +380,6 @@ export const PongGame: React.FC = () => {
           onPlayAgain={restartGame}
         />
       </div>
-
-      <TouchControls
-        onDirection={handleTouchDirection}
-        onAction={togglePause}
-        actionLabel={isPaused ? 'RESUME' : 'PAUSE'}
-      />
     </ArcadeCabinetFrame>
   );
 };

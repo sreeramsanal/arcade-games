@@ -37,56 +37,57 @@ export const TouchControls: React.FC<TouchControlsProps> = ({
   };
 
   return (
-    <div className={`mt-3 p-3 bg-[#14171f] dark:bg-[#14171f] light:bg-white border border-white/10 dark:border-white/10 light:border-slate-300 rounded-xl flex md:hidden flex-col items-center justify-center gap-3 select-none ${className}`}>
-      <span className="font-mono-cyber text-[10px] text-neutral-400 dark:text-neutral-400 light:text-slate-500 uppercase tracking-widest">
-        TOUCH CONTROLS EMULATION
-      </span>
+    <div className={`p-3 bg-[#0d0f14] dark:bg-[#0d0f14] light:bg-slate-100 border border-white/10 dark:border-white/10 light:border-slate-300 rounded-xl flex md:hidden flex-col items-center justify-center gap-2 select-none touch-none ${className}`}>
+      <div className="flex items-center gap-1.5 font-mono-cyber text-[10px] text-neutral-400 dark:text-neutral-400 light:text-slate-500 uppercase tracking-widest">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#ff2a4b] animate-pulse" />
+        <span>ARCADE CONTROL DECK // TOUCH EMULATION</span>
+      </div>
 
-      <div className="flex items-center justify-around w-full max-w-sm px-2">
+      <div className="flex items-center justify-around w-full max-w-sm px-2 py-1">
         {/* Virtual D-Pad */}
         {onDirection && (
-          <div className="relative w-28 h-28 bg-[#090b0e] dark:bg-[#090b0e] light:bg-slate-100 border border-white/10 dark:border-white/10 light:border-slate-300 rounded-full p-2 flex items-center justify-center touch-manipulation">
+          <div className="relative w-32 h-32 bg-[#090b0e] dark:bg-[#090b0e] light:bg-slate-200 border border-white/10 dark:border-white/10 light:border-slate-300 rounded-full p-2 flex items-center justify-center touch-none">
             {/* UP */}
             <button
               type="button"
               onTouchStart={(e) => handleDir('UP', e)}
               onClick={(e) => handleDir('UP', e)}
-              className="absolute top-1 left-1/2 -translate-x-1/2 w-8 h-8 bg-[#1c212d] dark:bg-[#1c212d] light:bg-white active:bg-[#ff2a4b] active:text-white rounded flex items-center justify-center text-[#ff2a4b] shadow"
+              className="absolute top-1 left-1/2 -translate-x-1/2 w-10 h-10 bg-[#1c212d] dark:bg-[#1c212d] light:bg-white active:bg-[#ff2a4b] active:text-white rounded-lg flex items-center justify-center text-[#ff2a4b] shadow active:scale-95 transition-transform touch-manipulation cursor-pointer"
               aria-label="Up"
             >
-              <span className="material-symbols-outlined text-lg">arrow_drop_up</span>
+              <span className="material-symbols-outlined text-xl">arrow_drop_up</span>
             </button>
             {/* DOWN */}
             <button
               type="button"
               onTouchStart={(e) => handleDir('DOWN', e)}
               onClick={(e) => handleDir('DOWN', e)}
-              className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-8 bg-[#1c212d] dark:bg-[#1c212d] light:bg-white active:bg-[#ff2a4b] active:text-white rounded flex items-center justify-center text-[#ff2a4b] shadow"
+              className="absolute bottom-1 left-1/2 -translate-x-1/2 w-10 h-10 bg-[#1c212d] dark:bg-[#1c212d] light:bg-white active:bg-[#ff2a4b] active:text-white rounded-lg flex items-center justify-center text-[#ff2a4b] shadow active:scale-95 transition-transform touch-manipulation cursor-pointer"
               aria-label="Down"
             >
-              <span className="material-symbols-outlined text-lg">arrow_drop_down</span>
+              <span className="material-symbols-outlined text-xl">arrow_drop_down</span>
             </button>
             {/* LEFT */}
             <button
               type="button"
               onTouchStart={(e) => handleDir('LEFT', e)}
               onClick={(e) => handleDir('LEFT', e)}
-              className="absolute left-1 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#1c212d] dark:bg-[#1c212d] light:bg-white active:bg-[#ff2a4b] active:text-white rounded flex items-center justify-center text-[#ff2a4b] shadow"
+              className="absolute left-1 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#1c212d] dark:bg-[#1c212d] light:bg-white active:bg-[#ff2a4b] active:text-white rounded-lg flex items-center justify-center text-[#ff2a4b] shadow active:scale-95 transition-transform touch-manipulation cursor-pointer"
               aria-label="Left"
             >
-              <span className="material-symbols-outlined text-lg">arrow_left</span>
+              <span className="material-symbols-outlined text-xl">arrow_left</span>
             </button>
             {/* RIGHT */}
             <button
               type="button"
               onTouchStart={(e) => handleDir('RIGHT', e)}
               onClick={(e) => handleDir('RIGHT', e)}
-              className="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#1c212d] dark:bg-[#1c212d] light:bg-white active:bg-[#ff2a4b] active:text-white rounded flex items-center justify-center text-[#ff2a4b] shadow"
+              className="absolute right-1 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#1c212d] dark:bg-[#1c212d] light:bg-white active:bg-[#ff2a4b] active:text-white rounded-lg flex items-center justify-center text-[#ff2a4b] shadow active:scale-95 transition-transform touch-manipulation cursor-pointer"
               aria-label="Right"
             >
-              <span className="material-symbols-outlined text-lg">arrow_right</span>
+              <span className="material-symbols-outlined text-xl">arrow_right</span>
             </button>
-            <div className="w-5 h-5 rounded-full bg-white/10 dark:bg-white/10 light:bg-slate-300" />
+            <div className="w-6 h-6 rounded-full bg-white/10 dark:bg-white/10 light:bg-slate-300" />
           </div>
         )}
 
@@ -98,7 +99,7 @@ export const TouchControls: React.FC<TouchControlsProps> = ({
                 type="button"
                 onTouchStart={handleSec}
                 onClick={handleSec}
-                className="w-12 h-12 rounded-full bg-[#1c212d] dark:bg-[#1c212d] light:bg-slate-200 border border-white/20 active:bg-neutral-600 text-white font-mono-cyber text-xs shadow-md active:translate-y-0.5 flex items-center justify-center font-bold"
+                className="w-12 h-12 rounded-full bg-[#1c212d] dark:bg-[#1c212d] light:bg-slate-200 border border-white/20 active:bg-neutral-600 text-white font-mono-cyber text-xs shadow-md active:scale-95 flex items-center justify-center font-bold touch-manipulation cursor-pointer"
               >
                 SEC
               </button>
@@ -114,7 +115,7 @@ export const TouchControls: React.FC<TouchControlsProps> = ({
                 type="button"
                 onTouchStart={handleAct}
                 onClick={handleAct}
-                className="w-14 h-14 rounded-full bg-[#ff2a4b] active:bg-[#e01e37] text-white font-mono-cyber text-xs shadow-[0_0_16px_rgba(255,42,75,0.6)] active:translate-y-0.5 flex items-center justify-center font-bold uppercase tracking-wider"
+                className="w-16 h-16 rounded-full bg-[#ff2a4b] active:bg-[#e01e37] text-white font-mono-cyber text-xs shadow-[0_0_20px_rgba(255,42,75,0.7)] active:scale-95 flex items-center justify-center font-bold uppercase tracking-wider touch-manipulation cursor-pointer"
               >
                 ACT
               </button>

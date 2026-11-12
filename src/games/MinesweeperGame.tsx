@@ -235,9 +235,9 @@ export const MinesweeperGame: React.FC = () => {
         { key: 'RIGHT-CLICK', label: 'FLAG 🚩' }
       ]}
     >
-      <div className="relative w-full h-full flex flex-col items-center justify-center p-3 select-none">
+      <div className="relative w-full h-full flex flex-col items-center justify-center p-2 sm:p-3 select-none">
         {/* Top Flag Mode Toggle Bar */}
-        <div className="flex items-center justify-between w-full max-w-sm mb-2 px-1 text-neutral-300 font-mono-cyber text-xs">
+        <div className="flex items-center justify-between w-full max-w-[340px] sm:max-w-md mb-2 px-1 text-neutral-300 font-mono-cyber text-xs">
           <div className="flex items-center gap-2">
             <span className="text-[#ff2a4b] font-bold">MINES: {minesLeft}</span>
             <span>•</span>
@@ -250,19 +250,19 @@ export const MinesweeperGame: React.FC = () => {
               soundService.playClick();
               setFlagMode(!flagMode);
             }}
-            className={`px-3 py-1 rounded text-[11px] font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${
+            className={`px-2.5 py-1 rounded text-[11px] font-bold flex items-center gap-1.5 transition-colors cursor-pointer ${
               flagMode
                 ? 'bg-[#ff2a4b] text-white shadow-[0_0_10px_rgba(255,42,75,0.6)]'
                 : 'bg-[#1c212d] text-neutral-300 border border-white/10'
             }`}
           >
             <span>🚩</span>
-            <span>{flagMode ? 'FLAG MODE ON' : 'REVEAL MODE'}</span>
+            <span>{flagMode ? 'FLAGGING ON' : 'REVEAL MODE'}</span>
           </button>
         </div>
 
         {/* 9x9 Mine Grid */}
-        <div className="grid grid-cols-9 gap-1 p-2 bg-[#090b0e] border border-white/10 rounded-xl shadow-inner w-full max-w-sm sm:max-w-md aspect-square">
+        <div className="grid grid-cols-9 gap-1 p-1.5 sm:p-2 bg-[#090b0e] border border-white/10 rounded-xl shadow-inner w-full max-w-[340px] sm:max-w-md aspect-square">
           {grid.map((row, r) =>
             row.map((cell, c) => {
               return (

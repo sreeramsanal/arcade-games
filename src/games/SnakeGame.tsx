@@ -323,6 +323,27 @@ export const SnakeGame: React.FC = () => {
     return () => cancelAnimationFrame(animId);
   }, [spawnFood, spawnBonus]);
 
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    const t = e.touches[0];
+    touchStartRef.current = { x: t.clientX, y: t.clientY };
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!touchStartRef.current) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchStartRef.current.x;
+    const dy = t.clientY - touchStartRef.current.y;
+    touchStartRef.current = null;
+    if (Math.abs(dx) < 20 && Math.abs(dy) < 20) return;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      setDirection(dx > 0 ? 'RIGHT' : 'LEFT');
+    } else {
+      setDirection(dy > 0 ? 'DOWN' : 'UP');
+    }
+  };
+
   return (
     <ArcadeCabinetFrame
       title="SNAKE MATRIX"
@@ -342,13 +363,22 @@ export const SnakeGame: React.FC = () => {
         { key: 'P', label: 'PAUSE' },
         { key: 'R', label: 'RESTART' }
       ]}
+      touchControls={
+        <TouchControls
+          onDirection={setDirection}
+          onAction={togglePause}
+          actionLabel={isPaused ? 'RESUME' : 'PAUSE'}
+        />
+      }
     >
-      <div className="relative w-full h-full flex items-center justify-center">
+      <div className="relative w-full h-full flex items-center justify-center p-1">
         <canvas
           ref={canvasRef}
           width={528}
           height={528}
-          className="max-w-full max-h-full aspect-square border border-[#ff2a4b]/20"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          className="w-full h-full max-w-full max-h-full object-contain aspect-square border border-[#ff2a4b]/20 touch-none shadow-[0_0_15px_rgba(255,42,75,0.2)]"
         />
 
         <GameOverModal
@@ -360,12 +390,6 @@ export const SnakeGame: React.FC = () => {
           onPlayAgain={restartGame}
         />
       </div>
-
-      <TouchControls
-        onDirection={setDirection}
-        onAction={togglePause}
-        actionLabel={isPaused ? 'RESUME' : 'PAUSE'}
-      />
     </ArcadeCabinetFrame>
   );
 };

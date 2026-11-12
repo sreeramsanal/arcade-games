@@ -17,6 +17,7 @@ interface ArcadeCabinetFrameProps {
   onTogglePause: () => void;
   onRestart: () => void;
   controlsHelp?: Array<{ key: string; label: string }>;
+  touchControls?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -38,6 +39,7 @@ export const ArcadeCabinetFrame: React.FC<ArcadeCabinetFrameProps> = ({
     { key: 'P', label: 'PAUSE' },
     { key: 'SPACE', label: 'ACTION' }
   ],
+  touchControls,
   children
 }) => {
   const [audioMuted, setAudioMuted] = React.useState(soundService.getMuted());
@@ -51,8 +53,8 @@ export const ArcadeCabinetFrame: React.FC<ArcadeCabinetFrameProps> = ({
   return (
     <div className="w-full flex flex-col items-center">
       {/* Upper Navigation & Match Telemetry Strip */}
-      <div className="w-full pt-4 pb-4 max-w-5xl">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#14171f]/85 dark:bg-[#14171f]/85 light:bg-white backdrop-blur-md border border-white/10 dark:border-white/10 light:border-slate-200 px-4 sm:px-6 py-4 rounded-xl shadow-[0_0_25px_rgba(255,42,75,0.08)]">
+      <div className="w-full pt-1 sm:pt-4 pb-2 sm:pb-4 max-w-5xl">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 sm:gap-4 bg-[#14171f]/85 dark:bg-[#14171f]/85 light:bg-white backdrop-blur-md border border-white/10 dark:border-white/10 light:border-slate-200 px-3 sm:px-6 py-2.5 sm:py-4 rounded-xl shadow-[0_0_25px_rgba(255,42,75,0.08)]">
           {/* Back Link & Title */}
           <div className="flex items-center gap-4">
             <Link
@@ -76,34 +78,34 @@ export const ArcadeCabinetFrame: React.FC<ArcadeCabinetFrameProps> = ({
           </div>
 
           {/* Real-Time HUD Telemetry Modules */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full md:w-auto">
+          <div className="grid grid-cols-2 xs:grid-cols-4 sm:flex sm:flex-wrap items-center gap-2 sm:gap-3 w-full md:w-auto">
             {/* Live Score */}
-            <div className="flex flex-col px-3.5 py-1.5 bg-[#090b0e] dark:bg-[#090b0e] light:bg-slate-100 border border-white/10 dark:border-white/10 light:border-slate-300 rounded shadow-sm min-w-[90px]">
+            <div className="flex flex-col px-3 py-1.5 bg-[#090b0e] dark:bg-[#090b0e] light:bg-slate-100 border border-white/10 dark:border-white/10 light:border-slate-300 rounded shadow-sm min-w-[75px] sm:min-w-[90px]">
               <span className="font-mono-cyber text-[10px] text-neutral-400 dark:text-neutral-400 light:text-slate-500 tracking-widest uppercase">
                 SCORE
               </span>
-              <span className="font-mono-cyber text-lg font-bold text-[#ff2a4b] drop-shadow-[0_0_10px_rgba(255,42,75,0.7)]">
+              <span className="font-mono-cyber text-base sm:text-lg font-bold text-[#ff2a4b] drop-shadow-[0_0_10px_rgba(255,42,75,0.7)]">
                 {score.toLocaleString()} <span className="text-[10px] font-normal text-white/50">{scoreUnit}</span>
               </span>
             </div>
 
             {/* High Record */}
-            <div className="flex flex-col px-3.5 py-1.5 bg-[#090b0e] dark:bg-[#090b0e] light:bg-slate-100 border border-white/10 dark:border-white/10 light:border-slate-300 rounded shadow-sm min-w-[90px]">
+            <div className="flex flex-col px-3 py-1.5 bg-[#090b0e] dark:bg-[#090b0e] light:bg-slate-100 border border-white/10 dark:border-white/10 light:border-slate-300 rounded shadow-sm min-w-[75px] sm:min-w-[90px]">
               <span className="font-mono-cyber text-[10px] text-neutral-400 dark:text-neutral-400 light:text-slate-500 tracking-widest uppercase">
                 RECORD
               </span>
-              <span className="font-mono-cyber text-lg font-bold text-white dark:text-white light:text-slate-900">
+              <span className="font-mono-cyber text-base sm:text-lg font-bold text-white dark:text-white light:text-slate-900">
                 {bestScore.toLocaleString()} <span className="text-[10px] font-normal text-white/50">{scoreUnit}</span>
               </span>
             </div>
 
             {/* Level / Speed */}
             {levelOrLivesValue !== undefined && (
-              <div className="flex flex-col px-3 py-1.5 bg-[#090b0e] dark:bg-[#090b0e] light:bg-slate-100 border border-white/10 dark:border-white/10 light:border-slate-300 rounded shadow-sm min-w-[70px]">
+              <div className="flex flex-col px-3 py-1.5 bg-[#090b0e] dark:bg-[#090b0e] light:bg-slate-100 border border-white/10 dark:border-white/10 light:border-slate-300 rounded shadow-sm min-w-[65px] sm:min-w-[70px]">
                 <span className="font-mono-cyber text-[10px] text-neutral-400 dark:text-neutral-400 light:text-slate-500 tracking-widest uppercase">
                   {levelOrLivesLabel}
                 </span>
-                <span className="font-mono-cyber text-sm font-semibold text-white dark:text-white light:text-slate-900">
+                <span className="font-mono-cyber text-xs sm:text-sm font-semibold text-white dark:text-white light:text-slate-900 truncate">
                   {levelOrLivesValue}
                 </span>
               </div>
@@ -111,11 +113,11 @@ export const ArcadeCabinetFrame: React.FC<ArcadeCabinetFrameProps> = ({
 
             {/* Multiplier / Combo */}
             {multiplierOrCombo && (
-              <div className="flex flex-col px-3 py-1.5 bg-[#1c212d] dark:bg-[#1c212d] light:bg-slate-200 border border-[#ff2a4b]/30 rounded shadow-sm min-w-[70px]">
+              <div className="flex flex-col px-3 py-1.5 bg-[#1c212d] dark:bg-[#1c212d] light:bg-slate-200 border border-[#ff2a4b]/30 rounded shadow-sm min-w-[65px] sm:min-w-[70px]">
                 <span className="font-mono-cyber text-[10px] text-[#ff2a4b] tracking-widest uppercase">
                   STATUS
                 </span>
-                <span className="font-mono-cyber text-sm font-bold text-white dark:text-white light:text-slate-900">
+                <span className="font-mono-cyber text-xs sm:text-sm font-bold text-white dark:text-white light:text-slate-900 truncate">
                   {multiplierOrCombo}
                 </span>
               </div>
@@ -125,12 +127,12 @@ export const ArcadeCabinetFrame: React.FC<ArcadeCabinetFrameProps> = ({
       </div>
 
       {/* Central Arcade Cabinet Frame & Glass Rig */}
-      <div className="w-full max-w-5xl bg-[#14171f] dark:bg-[#14171f] light:bg-white p-3 sm:p-6 rounded-2xl border border-white/10 dark:border-white/10 light:border-slate-300 shadow-[0_0_35px_rgba(0,0,0,0.85)] relative">
+      <div className="w-full max-w-5xl bg-[#14171f] dark:bg-[#14171f] light:bg-white p-2 sm:p-6 rounded-2xl border border-white/10 dark:border-white/10 light:border-slate-300 shadow-[0_0_35px_rgba(0,0,0,0.85)] relative">
         {/* Cabinet Bezel Top Badges */}
-        <div className="flex items-center justify-between px-3 py-1.5 bg-[#090b0e] dark:bg-[#090b0e] light:bg-slate-100 border-b border-white/10 dark:border-white/10 light:border-slate-300 rounded-t-xl mb-3 text-neutral-400 dark:text-neutral-400 light:text-slate-600 font-mono-cyber text-[11px]">
+        <div className="flex items-center justify-between px-3 py-1.5 bg-[#090b0e] dark:bg-[#090b0e] light:bg-slate-100 border-b border-white/10 dark:border-white/10 light:border-slate-300 rounded-t-xl mb-2 sm:mb-3 text-neutral-400 dark:text-neutral-400 light:text-slate-600 font-mono-cyber text-[11px]">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#ff2a4b] shadow-[0_0_8px_rgba(255,42,75,0.9)] animate-pulse" />
-            <span className="text-white dark:text-white light:text-slate-900 font-semibold">
+            <span className="text-white dark:text-white light:text-slate-900 font-semibold text-xs sm:text-sm">
               PIXEL ARCADE // HARDWARE CHASSIS
             </span>
           </div>
@@ -142,13 +144,13 @@ export const ArcadeCabinetFrame: React.FC<ArcadeCabinetFrameProps> = ({
         </div>
 
         {/* The CRT Bezel Enclosure */}
-        <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] bg-[#090b0e] border border-white/10 dark:border-white/10 light:border-slate-300 rounded-xl overflow-hidden shadow-[inset_0_0_50px_rgba(0,0,0,0.95)] flex items-center justify-center">
+        <div className="relative w-full aspect-square sm:aspect-[4/3] lg:aspect-[16/10] min-h-[350px] xs:min-h-[400px] sm:min-h-[460px] md:min-h-[520px] max-h-[75vh] bg-[#090b0e] border border-white/10 dark:border-white/10 light:border-slate-300 rounded-xl overflow-hidden shadow-[inset_0_0_50px_rgba(0,0,0,0.95)] flex items-center justify-center">
           {/* Glass Reflection Highlight */}
           <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#ff2a4b]/[0.02] to-white/[0.04] pointer-events-none z-20" />
           <div className="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-white/[0.03] blur-2xl pointer-events-none z-20" />
 
-          {/* Children: Active Canvas / Game Screen */}
-          <div className="relative w-full h-full flex items-center justify-center">
+          {/* Children: Active Canvas / Game Screen (Occupies 100% of CRT) */}
+          <div className="relative w-full h-full flex items-center justify-center p-1 sm:p-2 overflow-hidden">
             {children}
           </div>
 
@@ -175,10 +177,17 @@ export const ArcadeCabinetFrame: React.FC<ArcadeCabinetFrameProps> = ({
           )}
         </div>
 
+        {/* Dedicated Mobile Touch Controls Deck (Rendered Below CRT Screen) */}
+        {touchControls && (
+          <div className="w-full mt-3 block md:hidden">
+            {touchControls}
+          </div>
+        )}
+
         {/* Cabinet Bottom Control & Instructions Deck */}
-        <div className="mt-3 bg-[#090b0e] dark:bg-[#090b0e] light:bg-slate-100 border border-white/10 dark:border-white/10 light:border-slate-300 p-3 rounded-xl flex flex-col lg:flex-row items-center justify-between gap-3">
-          {/* Keyboard Controls Cheatsheet */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 text-neutral-400 dark:text-neutral-400 light:text-slate-600 font-mono-cyber text-[11px]">
+        <div className="mt-3 bg-[#090b0e] dark:bg-[#090b0e] light:bg-slate-100 border border-white/10 dark:border-white/10 light:border-slate-300 p-2.5 sm:p-3 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-3">
+          {/* Keyboard Controls Cheatsheet (Desktop / Tablet only) */}
+          <div className="hidden sm:flex flex-wrap items-center justify-center lg:justify-start gap-3 text-neutral-400 dark:text-neutral-400 light:text-slate-600 font-mono-cyber text-[11px]">
             {controlsHelp.map((item, idx) => (
               <div key={idx} className="flex items-center gap-1">
                 <span className="px-1.5 py-0.5 bg-[#14171f] dark:bg-[#14171f] light:bg-white border border-white/10 dark:border-white/10 light:border-slate-300 rounded text-white dark:text-white light:text-slate-900 font-bold">

@@ -175,9 +175,9 @@ export const MemoryMatchGame: React.FC = () => {
         { key: 'MATCH ALL', label: 'WIN' }
       ]}
     >
-      <div className="relative w-full h-full flex flex-col items-center justify-center p-3 select-none">
+      <div className="relative w-full h-full flex flex-col items-center justify-center p-2 sm:p-3 select-none">
         {/* Memory Grid 4x4 */}
-        <div className="grid grid-cols-4 gap-2.5 sm:gap-3 w-full max-w-sm sm:max-w-md aspect-square">
+        <div className="grid grid-cols-4 gap-2 sm:gap-3 w-full max-w-[340px] sm:max-w-md aspect-square">
           {cards.map(card => {
             const showFace = card.isFlipped || card.isMatched;
             return (
@@ -186,7 +186,7 @@ export const MemoryMatchGame: React.FC = () => {
                 type="button"
                 onClick={() => handleCardClick(card.id)}
                 disabled={card.isMatched || card.isFlipped}
-                className={`relative rounded-lg flex flex-col items-center justify-center transition-all duration-300 cursor-pointer ${
+                className={`relative rounded-xl flex flex-col items-center justify-center transition-all duration-300 cursor-pointer aspect-square ${
                   card.isMatched
                     ? 'bg-[#1c212d] border border-emerald-500/50 shadow-[0_0_12px_rgba(34,197,94,0.3)]'
                     : showFace
@@ -198,18 +198,18 @@ export const MemoryMatchGame: React.FC = () => {
                 {showFace ? (
                   <div className="flex flex-col items-center justify-center">
                     <span
-                      className="text-2xl sm:text-3xl filter drop-shadow-[0_0_8px_currentColor]"
+                      className="text-xl sm:text-3xl filter drop-shadow-[0_0_8px_currentColor]"
                       style={{ color: card.color }}
                     >
                       {card.symbol}
                     </span>
-                    <span className="font-mono-cyber text-[8px] text-neutral-400 uppercase mt-0.5">
+                    <span className="font-mono-cyber text-[8px] sm:text-[9px] text-neutral-400 uppercase mt-0.5 truncate max-w-full px-1">
                       {card.name}
                     </span>
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center text-neutral-600">
-                    <span className="font-mono-cyber text-xs">◆</span>
+                    <span className="font-mono-cyber text-xs sm:text-sm">◆</span>
                   </div>
                 )}
               </button>
@@ -218,7 +218,7 @@ export const MemoryMatchGame: React.FC = () => {
         </div>
 
         {/* Footer info in game frame */}
-        <div className="mt-3 flex items-center justify-between w-full max-w-sm sm:max-w-md text-neutral-400 font-mono-cyber text-[11px]">
+        <div className="mt-2 sm:mt-3 flex items-center justify-between w-full max-w-[340px] sm:max-w-md text-neutral-400 font-mono-cyber text-[10px] sm:text-[11px] px-1">
           <span>MATCHES: {matches} / {SYMBOLS.length}</span>
           <span className="text-[#ffb703]">TIME: {timeSeconds}s</span>
         </div>

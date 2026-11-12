@@ -176,7 +176,7 @@ export const ReactionTestGame: React.FC = () => {
     >
       <div 
         onClick={handleTriggerClick}
-        className="w-full h-full flex flex-col items-center justify-between p-6 select-none cursor-pointer transition-colors duration-200"
+        className="w-full h-full flex flex-col items-center justify-between p-3 sm:p-6 select-none cursor-pointer transition-colors duration-200 touch-manipulation"
         style={{
           backgroundColor:
             testState === 'WAITING' ? 'rgba(255, 42, 75, 0.15)' :
@@ -186,7 +186,7 @@ export const ReactionTestGame: React.FC = () => {
         }}
       >
         {/* Top Trial Telemetry */}
-        <div className="w-full flex items-center justify-between text-xs font-mono border-b border-[var(--border-arcade)] pb-3">
+        <div className="w-full flex items-center justify-between text-xs font-mono border-b border-[var(--border-arcade)] pb-2 sm:pb-3">
           <div className="flex items-center gap-2">
             <span className="text-[var(--text-muted)]">TRIAL PROGRESS:</span>
             <span className="text-[var(--neon-green)] font-bold">ROUND {Math.min(currentRound, totalRounds)} / {totalRounds}</span>
@@ -200,21 +200,21 @@ export const ReactionTestGame: React.FC = () => {
         </div>
 
         {/* Center Interactive Sensor Target */}
-        <div className="flex-1 flex flex-col items-center justify-center text-center max-w-lg px-4">
+        <div className="flex-1 flex flex-col items-center justify-center text-center max-w-lg px-2 sm:px-4 py-1 sm:py-2">
           {testState === 'IDLE' && (
-            <div className="space-y-4 animate-fade-in">
-              <div className="w-24 h-24 mx-auto rounded-full border-2 border-dashed border-[var(--neon-green)] flex items-center justify-center animate-pulse shadow-[0_0_25px_rgba(34,197,94,0.3)]">
-                <span className="material-symbols-outlined text-4xl text-[var(--neon-green)]">bolt</span>
+            <div className="space-y-2 sm:space-y-4 animate-fade-in flex flex-col items-center justify-center">
+              <div className="w-16 h-16 sm:w-24 sm:h-24 mx-auto rounded-full border-2 border-dashed border-[var(--neon-green)] flex items-center justify-center animate-pulse shadow-[0_0_25px_rgba(34,197,94,0.3)]">
+                <span className="material-symbols-outlined text-3xl sm:text-4xl text-[var(--neon-green)]">bolt</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-display font-black text-white tracking-wider">
+              <h2 className="text-xl sm:text-3xl font-display font-black text-white tracking-wider">
                 SYNAPTIC LATENCY TEST
               </h2>
-              <p className="text-sm font-mono text-[var(--text-muted)] max-w-sm">
-                When the sensor arms, wait for the screen to turn <span className="text-[var(--neon-green)] font-bold">NEON GREEN</span>. Click or press <span className="text-white font-bold">[SPACE]</span> as fast as humanly possible.
+              <p className="text-xs sm:text-sm font-mono text-[var(--text-muted)] max-w-sm">
+                When the sensor arms, wait for the screen to turn <span className="text-[var(--neon-green)] font-bold">NEON GREEN</span>. Click, tap, or press <span className="text-white font-bold">[SPACE]</span> as fast as humanly possible.
               </p>
-              <div className="pt-2">
-                <span className="inline-block px-6 py-3 bg-[var(--neon-green)] text-black font-display font-bold text-sm tracking-wider clip-chamfer-btn hover:brightness-110 active:scale-95 transition-all">
-                  CLICK OR PRESS SPACE TO START
+              <div className="pt-1 sm:pt-2">
+                <span className="inline-block px-5 py-2.5 sm:px-6 sm:py-3 bg-[var(--neon-green)] text-black font-display font-bold text-xs sm:text-sm tracking-wider clip-chamfer-btn hover:brightness-110 active:scale-95 transition-all">
+                  TAP OR CLICK TO START
                 </span>
               </div>
             </div>
